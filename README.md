@@ -24,3 +24,15 @@ Being the diligent student of TDD that he is, Ove writes four unit tests, altern
 (Please note that this is not the time to comment on whether <code>null</code> is a wise choice to signal an error condition. This is the decision that Ove has made, and the merits of that decision do not bear on the lessons of this story.)
 
 The SquareRoot class that Ove has just created is completely self-sufficient, and his tests do not require the use of Mockito. Thus, Anne has no problem with the code he just wrote, which is why her initial code looks exactly the same.
+
+####Processing
+
+Ove has decided that his "fun with square roots" will be to have the user enter a number, and have his program output the square root of that number. It will be great fun. Obviously, if the user enters something incorrectly, they should get a warning message, rather than having the whole program crash, but that's easy enough to ensure.
+
+Again following the precepts of TDD, Ove writes one test, then two, then three, each time adjusting the code to make the tests pass, each time dutifully mocking out absolutely everything other than the Transmitter object he's testing. He's mocked the <code>SquareRoot</code> object and the <code>IODevice</code> obejct, but when he writes <code>main</code>, he will simply plug in the actual <code>SquareRoot</code> and the concrete <code>ConsoleIODevice</code>.
+
+Anne is hoping to accomplish the same thing, but she refuses to use Mockito. For the <code>SquareRoot</code> dependency, that's easy; she just puts in a real <code>new SquareRoot()</code>, but the <code>IODevice</code> is a bit trickier. She could plug in a <code>new ConsoleIODevice</code>, but she can't assert any actual calls on that object.
+
+No, in this case, Anne needs to create a special type of <code>IODevice</code> that holds a sample read value and stores whatever was written to it. Then she can reach in and assert that the right value was written.
+
+Like Ove, Anne writes her tests and her code in parallel, running the tests frequently to make sure that everything works. In fact, though her tests look very different from Ove's, the production code they've produced is identical.
