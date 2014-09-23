@@ -14,3 +14,13 @@ And before we begin, let's not spend time asking "But is Anne really writing UNI
 Ove and Anne both decide to create a simple project that does fun things with square roots. They both decide to do their projects in Java, using Maven as their build systems. Their Maven scripts look identical except for one small difference: Ove includes mockito as a test dependency, while Anne does not.
 
 Feel free to import their work into your favorite IDE. Anne called her project "sqrt-without-mocks", while Ove named his "sqrt-with-mocks". It should be straightforward to tell which project will make use of Mockito, and which will not.
+
+####Square Roots
+
+Ove wants a square root generator. It should take in a Double object and return a Double object containing the square root of the input. If the input is in any way invalid, it should return <code>null</code>.
+
+Being the diligent student of TDD that he is, Ove writes four unit tests, alternating between modifying code and modifying tests. By the time he is finished, he knows that his square root calculator correctly computes the square root, and correctly errors with <code>null</code>.
+
+(Please note that this is not the time to comment on whether <code>null</code> is a wise choice to signal an error condition. This is the decision that Ove has made, and the merits of that decision do not bear on the lessons of this story.)
+
+The SquareRoot class that Ove has just created is completely self-sufficient, and his tests do not require the use of Mockito. Thus, Anne has no problem with the code he just wrote, which is why her initial code looks exactly the same.
