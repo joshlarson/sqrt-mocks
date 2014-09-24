@@ -41,7 +41,7 @@ public class SquareRootProcessorTest {
 	@Test
 	public void testNegativeInput() {
 		final SquareRoot sr = mock(SquareRoot.class);
-		when(sr.calculate(-10.0)).thenReturn(null);
+		when(sr.calculate(-10.0)).thenThrow(new IllegalArgumentException());
 
 		final IODevice io = mock(IODevice.class);
 		when(io.read()).thenReturn("-10.0");

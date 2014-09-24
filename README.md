@@ -60,3 +60,13 @@ Then, before she commits, Anne does the responsible thing and runs all of the un
 Ove, meanwhile, also starts to think that <code>null</code> was a bad idea, and also wants to throw an <code>IllegalArgumentException</code>. He makes the same adjustment as Anne to his test, asserting the exception, sees it fail, and makes the same change to his production code.
 
 Before he commits, being the responsible TDDer that he is, Ove runs all the unit tests, and satisfied that they all pass, commits his new change.
+
+####Bug Reports
+
+Ove starts getting bug reports from angry customers. Complaints are pouring in, saying things like "the big red words appear and I can't make them go away". Eventually, Ove realizes that his program prints a stack trace because the <code>IllegalArgumentException</code> sneaks past his <code>SquareRootProcessor</code>.
+
+"How foolish of me!", thinks Ove. "I updated all of the other mocked <code>SquareRoot</code>s, but I must have missed this one."
+
+Now that he realizes this, he updates the mock in his <code>SquareRootProcessorTest</code>, and fixes the problem. He runs the unit tests, and they pass, but he no longer trusts them, so he spends a great deal of extra time and money running a full regression test to make sure that he didn't miss any other runtime exceptions. He pushes his code, but his customers don't quite trust him any more. Many of them couldn't wait for the fix and switched to his competitors, many are not willing to pay as much as before, and those who stayed are less willing to upgrade for fear of losing functionality.
+
+Meanwhile, Anne, who fixed this problem before any customers saw it, is enjoying a stellar reputation in the Square Root Printing industry, and, with the money she rakes in from her ever-increasing market share, takes a vacation in the Bahamas, and when she gets back, she hires Ove into her company as an underpaid Junior Developer.
