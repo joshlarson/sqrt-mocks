@@ -42,3 +42,21 @@ Like Ove, Anne writes her tests and her code in parallel, running the tests freq
 Over the next several months, Anne and Ove add more features (not shown for convenience) to their respective projects. They both eventually decide that it's time to publish their code and push out a working product.
 
 Since their code still looks so similar, their <code>Main</code>s end up looking the same too. Go ahead and give either of their projects a try. It'll be fun!
+
+####Changes
+
+After building (and testing) more and more classes (not shown in this repository for convenience) that make use of the SquareRoot object, Anne starts to think that using <code>null</code> as a return value to indicate failure was a mistake. She starts to think that a more elegant way of handling that error condition would be to throw a runtime exception.
+
+(Once again, the discussion, of whether the use of runtime exceptions is a force for good or for evil is not the intent of this forum)
+
+So she wanders back to SquareRootTest, dusts it off, and changes <code>testNegativeOne</code> to assert that an <code>IllegalArgumentException</code> was thrown. Obviously the test fails, so she adds in the exception and it passes.
+
+Then, before she commits, Anne does the responsible thing and runs all of the unit tests. One of them fails, one that was passing just a moment before!
+
+"Hmmm", says Anne, puzzled. After scratching her head for a moment, she remembers that the SquareRootProcessor was based on the <code>null</code> return value, and now that that was no longer the behavior, the SquareRootProcessor was broken. Realizing that, she can change the null check to a catch clause and save her program from catastrophe.
+
+"Phew", says Anne, relieved that this bug didn't make it out to production. "That would have been embarrassing!"
+
+Ove, meanwhile, also starts to think that <code>null</code> was a bad idea, and also wants to throw an <code>IllegalArgumentException</code>. He makes the same adjustment as Anne to his test, asserting the exception, sees it fail, and makes the same change to his production code.
+
+Before he commits, being the responsible TDDer that he is, Ove runs all the unit tests, and satisfied that they all pass, commits his new change.

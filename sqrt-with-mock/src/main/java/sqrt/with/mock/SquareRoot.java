@@ -6,7 +6,7 @@ public class SquareRoot {
 
 	public Double calculate(final double input) {
 		if (input < 0.0) {
-			return null;
+			throw new IllegalArgumentException();
 		}
 		return new Double(sqrt(input));
 	}

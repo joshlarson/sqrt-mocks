@@ -8,13 +8,11 @@ public class SquareRootProcessor {
 	public void process(final IODevice io, final SquareRoot sr) {
 		try {
 			final Double result = sr.calculate(Double.parseDouble(io.read()));
-			if (result != null) {
-				io.write(Double.toString(result));
-			} else {
-				io.write("Error: Negative input");
-			}
+			io.write(Double.toString(result));
 		} catch (final NumberFormatException e) {
 			io.write("Error: Non-numeric input");
+		} catch (final IllegalArgumentException e) {
+			io.write("Error: Negative input");
 		}
 	}
 

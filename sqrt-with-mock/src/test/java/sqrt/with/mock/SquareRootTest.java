@@ -26,10 +26,10 @@ public class SquareRootTest {
 		assertEquals(1.414, sr.calculate(2.0).doubleValue(), DELTA);
 	}
 
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testNegativeOne() {
 		final SquareRoot sr = new SquareRoot();
-		assertEquals(null, sr.calculate(-1.0));
+		sr.calculate(-1.0);
 	}
 
 }
