@@ -70,3 +70,39 @@ Ove starts getting bug reports from angry customers. Complaints are pouring in, 
 Now that he realizes this, he updates the mock in his <code>SquareRootProcessorTest</code>, and fixes the problem. He runs the unit tests, and they pass, but he no longer trusts them, so he spends a great deal of extra time and money running a full regression test to make sure that he didn't miss any other runtime exceptions. He pushes his code, but his customers don't quite trust him any more. Many of them couldn't wait for the fix and switched to his competitors, many are not willing to pay as much as before, and those who stayed are less willing to upgrade for fear of losing functionality.
 
 Meanwhile, Anne, who fixed this problem before any customers saw it, is enjoying a stellar reputation in the Square Root Printing industry, and, with the money she rakes in from her ever-increasing market share, takes a vacation in the Bahamas, and when she gets back, she hires Ove into her company as an underpaid Junior Developer.
+
+####Debrief
+
+Let's start by scolding Anne T. Mokk for refusing to touch Mockito. I understand her hatred of mocking and her fear of the consequences, but a blanket refusal to do anything with Mockito is silly.
+
+Despite the clever misleading name, her <code>StoringIODevice</code> was a mock, but with several disadvantages over doing the same thing in Mockito. Obviously, it took longer to make, since it would have been two lines of Mockito method calls. The resulting code also hides the real method signature of <code>SquareRootProcessor</code>, thereby hiding what she was actually testing. And using a custom "mock" over a Mockito mock didn't yield any real structural security.
+
+But Anne learned that lesson from the Bahamas. Ove has a lesson to learn in the cold almost-winter of somewhere not tropical.
+
+Ove R. Mokk pushed a bug into production. Even worse, he broke a feature that had previously worked.
+
+You may be thinking, "Ove, you fool! Unit tests are cool, but you can't trust them with your life. You have to have some sort of backup plan: a dedicated QA team, an integration testing suite that runs on an integrtion testing server!"
+
+All of those are good ideas, but why doesn't that apply to Anne as well? She did the same thing as Ove, and managed to avoid pushing any bugs.
+
+Or maybe you're thinking, "Ove, you idiot! You should never use [null/unchecked exceptions]; they cause nothing but problems!"
+
+To which I rejoinder: THAT'S NOT THE POINT! The point of using null/unchecked exceptions is to illustrate any change that the type system won't notice, but that's only one example. Maybe one module expects a sorted list and the other forgets to sort it. There are all sorts of ways to change the contract of a "unit" without changing any type-checked method signatures.
+
+Or you might be thinking, "Ove, you clown! You should have checked ALL of your <code>SquareRoot</code> mocks to make sure that all of them behave the way that the <code>SquareRoot</code> object is supposed to! Of course you'll have problems when you miss one!"
+
+Remember that JUnit, or whatever testing framework Ove was using, wasn't about to tell him that he broke something. So how is he going to figure out which places need changing? By searching the filesystem? How many clients of <code>SquareRoot</code> can Ove keep track of before he accidentally skips one?
+
+Anne didn't have to keep track. She took advantage of the fact that the computer can do things like that, and the fact that the mock reliable mock of a <code>SquareRoot</code> is a <code>new SquareRoot()</code>.
+
+Ove's fundamental problem was that his aggressive use of mocks hid from JUnit the actual structure of the system. The unit tests couldn't see the wiring, and they couldn't test the wiring, and when the wiring changed, Ove's unit tests were unable to cope.
+
+Mocking is locking. As soon as you mock a boundary, you lock that bounday, by making it difficult-to-impossible to change. Both Ove and Anne mocked the I/O boundary, but Ove also mocked the boundary between <code>SquareRootProcessor</code> and <code>SquareRoot</code>.
+
+Mocking a boundary that is completely stable is fine; you mock it and it never changes anyway. But if you mock your own business objects, you commit yourself to keeping those objects forever, since changing them can cause so many problems. You lock yourself prematurely into an architecture that may not be optimal.
+
+And if you don't lock yourself into that architecture, you will break things.
+
+Anne ran her unit tests, and when they passed, she shipped, because it meant she had no bugs.
+
+Ove ran his unit tests, and when they passed, he still had bugs. Starts to make you wonder why Ove bothered with unit tests to begin with.
