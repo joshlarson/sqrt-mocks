@@ -36,3 +36,9 @@ Anne is hoping to accomplish the same thing, but she refuses to use Mockito. For
 No, in this case, Anne needs to create a special type of <code>IODevice</code> that holds a sample read value and stores whatever was written to it. Then she can reach in and assert that the right value was written.
 
 Like Ove, Anne writes her tests and her code in parallel, running the tests frequently to make sure that everything works. In fact, though her tests look very different from Ove's, the production code they've produced is identical.
+
+####Main
+
+Over the next several months, Anne and Ove add more features (not shown for convenience) to their respective projects. They both eventually decide that it's time to publish their code and push out a working product.
+
+Since their code still looks so similar, their <code>Main</code>s end up looking the same too. Go ahead and give either of their projects a try. It'll be fun!
